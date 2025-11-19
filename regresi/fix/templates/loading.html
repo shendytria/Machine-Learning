@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Memproses Data...</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    .progress-wrap { margin-top: 30px; }
+    .progress-track {
+      height: 18px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(126,104,255,0.08);
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #59f, #9b7dff);
+      transition: width 0.6s ease;
+    }
+    .step-text { margin-top: 18px; text-align:center; color: #dcd7ff; font-weight:600; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Memproses Data & Melatih Model</h1>
+    <p>Sistem sedang menjalankan training & testing. Tunggu sebentar.</p>
+
+    <div class="progress-wrap">
+      <div class="progress-track">
+        <div id="bar" class="progress-bar"></div>
+      </div>
+      <div id="step" class="step-text">Menyiapkan...</div>
+    </div>
+  </div>
+
+  <script>
+    const steps = [
+      "Menyiapkan data...",
+      "Membersihkan & memproses data...",
+      "Training XGBoost...",
+      "Testing XGBoost...",
+      "Training LightGBM...",
+      "Testing LightGBM...",
+      "Menghitung metrik evaluasi...",
+      "Membuat grafik...",
+      "Mengakhiri proses..."
+    ];
+
+    let idx = 0;
+    const bar = document.getElementById('bar');
+    const stepText = document.getElementById('step');
+
+    function stepNext() {
+      if (idx >= steps.length) {
+        bar.style.width = "100%";
+        stepText.innerText = "Selesai — mengarahkan ke hasil...";
+        setTimeout(()=> { window.location.href = "/process"; }, 800);
+        return;
+      }
+      stepText.innerText = steps[idx];
+      // progress based on steps
+      const progress = Math.round(((idx + 1) / steps.length) * 100);
+      bar.style.width = progress + "%";
+      idx++;
+      setTimeout(stepNext, 700);
+    }
+
+    stepNext();
+  </script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+/* =========================
+   FONT GLOBAL
+========================= */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* =========================
+   STYLE GLOBAL
+========================= */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f3fa;
+  color: #1e1e2f;
+  margin: 0;
+  padding: 0;
+  line-height: 1.7;
+}
+
+/* =========================
+   KONTAINER UTAMA
+========================= */
+.container {
+  width: 850px;
+  margin: 80px auto;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 60px 70px;
+  box-shadow: 0 6px 25px rgba(60, 42, 154, 0.15);
+  transition: all 0.3s ease;
+}
+
+.container:hover {
+  box-shadow: 0 8px 30px rgba(46, 31, 128, 0.25);
+}
+
+/* =========================
+   HEADINGS
+========================= */
+h1, h2 {
+  text-align: center;
+  color: #3C2A9A;
+  letter-spacing: 0.6px;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+h2 {
+  font-size: 22px;
+  margin-top: 55px;
+  margin-bottom: 25px;
+}
+
+p {
+  text-align: center;
+  font-size: 15.5px;
+  color: #555;
+  font-weight: 400;
+  margin-bottom: 30px;
+}
+
+/* =========================
+   FORM (index.html)
+========================= */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-top: 30px;
+}
+
+label {
+  font-weight: 600;
+  color: #2b2b2b;
+  margin-bottom: 6px;
+}
+
+input[type="text"],
+input[type="date"] {
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid #d9d6f7;
+  font-size: 15.5px;
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus {
+  outline: none;
+  border-color: #3C2A9A;
+  box-shadow: 0 0 8px rgba(60, 42, 154, 0.35);
+}
+
+button {
+  background-color: #3C2A9A;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  font-weight: 600;
+  font-size: 17px;
+  cursor: pointer;
+  margin-top: 25px;
+  transition: all 0.3s ease;
+  letter-spacing: 0.4px;
+}
+
+button:hover {
+  background-color: #2E1F80;
+  transform: scale(1.02);
+  box-shadow: 0 3px 10px rgba(46, 31, 128, 0.3);
+}
+
+/* =========================
+   TABEL (result.html)
+========================= */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+  margin-bottom: 45px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 15px;
+}
+
+th, td {
+  border: 1px solid #e5e3f7;
+  padding: 14px 10px;
+  text-align: center;
+}
+
+th {
+  background-color: #3C2A9A;
+  color: #ffffff;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+td {
+  background-color: #faf9ff;
+  font-weight: 500;
+}
+
+/* =========================
+   GRAFIK (result.html)
+========================= */
+.chart {
+  display: block;
+  width: 100%;
+  border-radius: 14px;
+  margin-top: 35px;
+  margin-bottom: 50px;
+  box-shadow: 0 5px 14px rgba(60, 42, 154, 0.2);
+  border: 1px solid #e6e3fa;
+}
+
+/* =========================
+   PREDIKSI BOX (result.html)
+========================= */
+.prediksi {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 35px;
+  margin-bottom: 45px;
+  background: #ecebfb;
+  border: 1px solid #d2cff6;
+  border-radius: 12px;
+  padding: 25px 15px;
+  font-size: 19px;
+  color: #2E1F80;
+  font-weight: 600;
+  box-shadow: 0 3px 8px rgba(60, 42, 154, 0.12);
+}
+
+/* =========================
+   LINK KEMBALI (result.html)
+========================= */
+.back {
+  display: inline-block;
+  width: 100%;
+  margin-top: 50px;
+  text-align: center;
+  text-decoration: none;
+  background-color: #3C2A9A;
+  color: #fff;
+  font-weight: 600;
+  padding: 14px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  letter-spacing: 0.4px;
+}
+
+.back:hover {
+  background-color: #2E1F80;
+  box-shadow: 0 3px 12px rgba(46, 31, 128, 0.35);
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+@media (max-width: 768px) {
+  .container {
+    width: 92%;
+    padding: 30px 25px;
+    margin: 40px auto;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  .prediksi {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  table {
+    font-size: 13.5px;
+  }
+
+  .chart {
+    margin-top: 20px;
+  }
+}

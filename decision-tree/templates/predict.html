@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Predict New Input</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+            },
+            positive: {
+              500: '#10b981',
+              600: '#059669'
+            },
+            negative: {
+              500: '#ef4444',
+              600: '#dc2626'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .gradient-bg {
+      background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+    }
+
+    .input-field {
+      transition: all 0.3s ease;
+      border: 1px solid #d1d5db;
+    }
+
+    .input-field:focus {
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+      border-color: #0ea5e9;
+    }
+
+    .card {
+      background: white;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      border: 1px solid #e5e7eb;
+    }
+
+    .card:hover {
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen p-4 font-sans">
+  <div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="gradient-bg text-white rounded-xl p-6 mb-8 text-center">
+      <h1 class="text-3xl font-bold mb-2">Predict New Input</h1>
+      <p class="text-blue-100">Masukkan nilai fitur untuk memprediksi target class</p>
+    </div>
+
+    <div class="card p-6 mb-6">
+      <!-- Prediction Result -->
+      {% if prediction_result is not none %}
+      {% if prediction_result in ['1', 'positive', 'Positive', 'Positif'] %}
+      <div class="bg-gradient-to-r from-positive-500 to-positive-600 text-white rounded-lg p-6 mb-6 text-center">
+        <h2 class="text-xl font-semibold mb-2">Prediction Result</h2>
+        <p class="text-3xl font-bold">Positif</p>
+      </div>
+      {% elif prediction_result in ['0', 'negative', 'Negative', 'Negatif'] %}
+      <div class="bg-gradient-to-r from-negative-500 to-negative-600 text-white rounded-lg p-6 mb-6 text-center">
+        <h2 class="text-xl font-semibold mb-2">Prediction Result</h2>
+        <p class="text-3xl font-bold">Negatif</p>
+      </div>
+      {% else %}
+      <div class="bg-gray-500 text-white rounded-lg p-6 mb-6 text-center">
+        <h2 class="text-xl font-semibold mb-2">Prediction Result</h2>
+        <p class="text-3xl font-bold">{{ prediction_result }}</p>
+      </div>
+      {% endif %}
+      {% endif %}
+
+      <!-- Input Form -->
+      <form action="/predict" method="post" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {% for col, question in questions %}
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">{{ question }}</label>
+            <input name="input_{{ col }}" type="text"
+              value="{{ input_values[col] if input_values else '' }}"
+              required
+              class="input-field w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500" />
+          </div>
+          {% endfor %}
+        </div>
+        <button type="submit"
+          class="w-full flex justify-center items-center py-3 px-4 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-lg font-medium hover:from-primary-600 hover:to-primary-700 transition-all duration-300 transform hover:-translate-y-0.5">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          Predict
+        </button>
+      </form>
+    </div>
+
+    <!-- Navigation -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="/"
+        class="bg-gradient-to-r from-gray-500 to-gray-600 text-white px-6 py-3 rounded-lg font-medium text-center hover:from-gray-600 hover:to-gray-700 transition-all duration-300">
+        Upload another dataset
+      </a>
+    </div>
+  </div>
+</body>
+
+</html>

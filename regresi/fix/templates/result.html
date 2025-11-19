@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Hasil Prediksi</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1><i class="fa-solid fa-chart-column"></i> Hasil Training & Prediksi</h1>
+
+    <p style="text-align:center;color:#cfcaff;">
+      Training size: {{ train_size }} • Test size: {{ test_size }}
+    </p>
+
+    <h2>Evaluasi Model</h2>
+    <table>
+      <tr>
+        <th>Model</th>
+        <th>MAE</th>
+        <th>MSE</th>
+        <th>RMSE</th>
+        <th>MAPE (%)</th>
+        <th>R²</th>
+        <th>Train time (s)</th>
+      </tr>
+
+      <tr>
+        <td>{{ eval_xgb['Model'] }}</td>
+        <td>{{ "%.4f"|format(eval_xgb['MAE']) }}</td>
+        <td>{{ "%.4f"|format(eval_xgb['MSE']) }}</td>
+        <td>{{ "%.4f"|format(eval_xgb['RMSE']) }}</td>
+        <td>{{ "%.4f"|format(eval_xgb['MAPE']) }}</td>
+        <td>{{ "%.4f"|format(eval_xgb['R2']) }}</td>
+        <td>{{ eval_xgb['train_time_s'] }}</td>
+      </tr>
+
+      <tr>
+        <td>{{ eval_lgbm['Model'] }}</td>
+        <td>{{ "%.4f"|format(eval_lgbm['MAE']) }}</td>
+        <td>{{ "%.4f"|format(eval_lgbm['MSE']) }}</td>
+        <td>{{ "%.4f"|format(eval_lgbm['RMSE']) }}</td>
+        <td>{{ "%.4f"|format(eval_lgbm['MAPE']) }}</td>
+        <td>{{ "%.4f"|format(eval_lgbm['R2']) }}</td>
+        <td>{{ eval_lgbm['train_time_s'] }}</td>
+      </tr>
+    </table>
+
+    <h2>Grafik (Actual vs Predicted on Test Set)</h2>
+    <img src="{{ url_for('static', filename=plot_filename) }}" class="chart" alt="Grafik Prediksi">
+
+    {% set dt = user_input['date'].split('-') %}
+    <h2>Prediksi Harga {{ dt[2] }}-{{ dt[1] }}-{{ dt[0] }}</h2>
+
+    <div class="prediksi">
+      <div><b>Model:</b> XGBoost<br><b>Prediksi Harga:</b> $ {{ "%.2f"|format(next_pred_xgb) }}</div>
+      <div><b>Model:</b> LightGBM<br><b>Prediksi Harga:</b> $ {{ "%.2f"|format(next_pred_lgbm) }}</div>
+    </div>
+
+    <a href="/visualization" class="back">
+      <i class="fa-solid fa-chart-area"></i> Lihat Data Visualization
+    </a>
+
+    <a href="/" class="back"><i class="fa-solid fa-arrow-left"></i> Prediksi Data Lain</a>
+  </div>
+</body>
+
+</html>

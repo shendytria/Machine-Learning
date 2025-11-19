@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Prediksi Harga Saham — Input Data</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Prediksi Harga Saham</h1>
+    <p>Isi form di bawah dengan data yang ingin Anda prediksi</p>
+
+    <form method="POST" enctype="multipart/form-data">
+      <label>Stock (kode, contoh: AAPL)</label>
+      <input type="text" name="stock" placeholder="AAPL" required>
+
+      <label>Tanggal prediksi</label>
+      <input type="date" name="date" required>
+
+      <label>Open Price</label>
+      <input type="text" name="open" placeholder="Misal: 143.44" required>
+
+      <label>Risk level</label>
+      <select name="risk" required>
+        <option value="medium" selected>medium</option>
+        <option value="low">low</option>
+        <option value="high">high</option>
+      </select>
+
+      <button type="submit">Mulai Prediksi</button>
+    </form>
+  </div>
+</body>
+</html>

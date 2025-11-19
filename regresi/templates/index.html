@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Prediksi Harga Saham</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1><i class="fa-solid fa-chart-line"></i> Prediksi Harga Saham (XGBoost & LightGBM)</h1>
+    <form method="POST">
+      <label>Kode Saham (Yahoo Finance):</label>
+      <input type="text" name="ticker" placeholder="Contoh: BBCA.JK" required>
+
+      <label>Tanggal Mulai:</label>
+      <input type="date" name="start" required>
+
+      <label>Tanggal Selesai:</label>
+      <input type="date" name="end" required>
+
+      <button type="submit"><i class="fa-solid fa-play"></i> Prediksi Sekarang</button>
+    </form>
+  </div>
+</body>
+</html>

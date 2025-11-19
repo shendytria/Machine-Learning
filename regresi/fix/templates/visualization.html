@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Visualization — Stock Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .vis-container {
+            width: 900px;
+            margin: 60px auto;
+            background: #141129;
+            padding: 40px 50px;
+            border-radius: 16px;
+            box-shadow: 0 0 25px rgba(98,76,255,0.25);
+            border: 1px solid rgba(98,76,255,0.25);
+        }
+        
+        h1, h2 {
+            text-align: center;
+            color: #a892ff;
+            margin-bottom: 12px;
+        }
+
+        .chart-box {
+            background: #1b1737;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(126,104,255,0.18);
+            box-shadow: 0 0 18px rgba(168,146,255,0.12);
+        }
+
+        .chart {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid rgba(126,104,255,0.18);
+        }
+
+        .back-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            background: linear-gradient(135deg, #7e68ff, #9e8bff);
+            color: white;
+            font-weight: 600;
+            margin-top: 30px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #c9c6f7;
+            margin-bottom: 25px;
+            margin-top: -10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="vis-container">
+        <h1><i class="fa-solid fa-chart-pie"></i> Data Visualization</h1>
+        <p class="subtitle">Analisis visual dari model XGBoost & LightGBM</p>
+
+        <!-- 1. Residual Distribution -->
+        <div class="chart-box">
+            <h2>Residual Distribution</h2>
+            <img src="{{ url_for('static', filename='vis_residuals.png') }}" class="chart" alt="Residual Distribution">
+        </div>
+
+        <!-- 2. Feature Importance XGBoost -->
+        <div class="chart-box">
+            <h2>Feature Importance — XGBoost</h2>
+            <img src="{{ url_for('static', filename='vis_xgb_fi.png') }}" class="chart" alt="Feature Importance XGB">
+        </div>
+
+        <!-- 3. Feature Importance LightGBM -->
+        <div class="chart-box">
+            <h2>Feature Importance — LightGBM</h2>
+            <img src="{{ url_for('static', filename='vis_lgbm_fi.png') }}" class="chart" alt="Feature Importance LGBM">
+        </div>
+
+        <!-- 4. Historical Price Trend -->
+        <div class="chart-box">
+            <h2>Historical Price Trend</h2>
+            <img src="{{ url_for('static', filename='vis_history.png') }}" class="chart" alt="Historical Trend">
+        </div>
+
+        <!-- 5. Time Series Prediction -->
+        <div class="chart-box">
+            <h2>Time Series Prediction</h2>
+            <img src="{{ url_for('static', filename='vis_timeseries.png') }}" class="chart" alt="Time Series Prediction">
+        </div>
+
+        <a href="/process" class="back">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Hasil Prediksi
+        </a>
+    </div>
+
+</body>
+</html>

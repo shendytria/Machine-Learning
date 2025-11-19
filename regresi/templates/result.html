@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Hasil Prediksi Saham</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1><i class="fa-solid fa-chart-column"></i> Hasil Prediksi Saham {{ ticker }}</h1>
+    <p>Periode: {{ start }} hingga {{ end }}</p>
+
+    <h2><i class="fa-solid fa-square-poll-vertical"></i> Evaluasi Model</h2>
+    <table>
+      <tr>
+        <th>Model</th><th>MAE</th><th>MSE</th><th>RMSE</th><th>MAPE (%)</th><th>R²</th>
+      </tr>
+      <tr>
+        <td>XGBoost</td>
+        <td>{{ "%.2f"|format(eval_xgb['MAE']) }}</td>
+        <td>{{ "%.2f"|format(eval_xgb['MSE']) }}</td>
+        <td>{{ "%.2f"|format(eval_xgb['RMSE']) }}</td>
+        <td>{{ "%.2f"|format(eval_xgb['MAPE']) }}</td>
+        <td>{{ "%.4f"|format(eval_xgb['R2']) }}</td>
+      </tr>
+      <tr>
+        <td>LightGBM</td>
+        <td>{{ "%.2f"|format(eval_lgbm['MAE']) }}</td>
+        <td>{{ "%.2f"|format(eval_lgbm['MSE']) }}</td>
+        <td>{{ "%.2f"|format(eval_lgbm['RMSE']) }}</td>
+        <td>{{ "%.2f"|format(eval_lgbm['MAPE']) }}</td>
+        <td>{{ "%.4f"|format(eval_lgbm['R2']) }}</td>
+      </tr>
+    </table>
+
+    <h2><i class="fa-solid fa-chart-line"></i> Grafik Perbandingan Harga</h2>
+    <img src="{{ url_for('static', filename='plot.png') }}" alt="Grafik Prediksi" class="chart">
+
+    <h2><i class="fa-solid fa-magic"></i> Prediksi Hari Berikutnya</h2>
+    <div class="prediksi">
+      <div><b>XGBoost:</b> Rp {{ "%.2f"|format(next_xgb) }}</div>
+      <div><b>LightGBM:</b> Rp {{ "%.2f"|format(next_lgbm) }}</div>
+    </div>
+
+    <a href="/" class="back"><i class="fa-solid fa-arrow-left"></i> Kembali ke Halaman Utama</a>
+  </div>
+</body>
+</html>

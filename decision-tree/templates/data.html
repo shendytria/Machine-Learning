@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Decision Tree - Analisis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .table-striped tbody tr:nth-child(odd) {
+            background: #f8fafc;
+        }
+
+        .table-striped th,
+        .table-striped td {
+            padding: .75rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .table-striped th {
+            background: #0ea5e9;
+            color: white;
+            font-weight: 600;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+        }
+
+        .section-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Tambah utilitas untuk membungkus teks panjang agar turun ke bawah */
+        .wrap-anywhere {
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            hyphens: auto;
+        }
+
+        /* Perbaiki tampilan tabel di dalam card dan izinkan wrapping */
+        .section-card table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .section-card table thead th {
+            background: #f1f5f9;
+            color: #0f172a;
+            font-weight: 600;
+        }
+
+        .section-card table th,
+        .section-card table td {
+            padding: .75rem;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+            white-space: normal !important;
+            /* override kemungkinan nowrap dari generator */
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        /* Pastikan blok <pre> membungkus teks agar tidak melebar ke samping */
+        pre {
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: .5rem;
+        }
+
+        .section-card table {
+            border-radius: 0.5rem;
+            overflow: hidden;
+            /* biar radius kepotong rapi */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-card table thead th {
+            background: linear-gradient(90deg, #0ea5e9, #0284c7);
+            color: white;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .section-card table tbody tr:nth-child(even) {
+            background-color: #f0f9ff;
+            /* primary-50 */
+        }
+
+        .section-card table tbody tr:hover {
+            background-color: #e0f2fe;
+            /* primary-100 */
+            transition: background 0.2s ease;
+        }
+
+        table.dataframe th {
+            white-space: nowrap !important;
+            /* jangan bungkus teks */
+            writing-mode: horizontal-tb !important;
+            /* pastikan horizontal */
+            transform: none !important;
+            /* hapus rotasi */
+            text-align: center;
+            /* biar rapi */
+            vertical-align: middle;
+        }
+
+        .section-card .overflow-x-auto {
+            overflow-x: auto;
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen p-4 font-sans">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <div class="gradient-bg text-white rounded-xl p-6 mb-8 text-center">
+            <h1 class="text-3xl font-bold mb-2">Decision Tree Analysis</h1>
+            <p class="text-blue-100">Analysis results for your dataset</p>
+        </div>
+
+        <div class="space-y-8">
+            <!-- Target Column -->
+            <div class="section-card p-6">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">Target Column</h2>
+                <div class="bg-primary-50 p-4 rounded-lg border border-primary-100">
+                    <p class="text-primary-700 font-medium text-lg wrap-anywhere">{{ target_column }}</p>
+                </div>
+            </div>
+
+            <!-- All Data -->
+            <div class="section-card p-6">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">All Data (sample)</h2>
+                <div class="overflow-x-auto wrap-anywhere">
+                    {{ data_head_html | safe }}
+                </div>
+            </div>
+
+            <!-- Grouped Data -->
+            <div class="section-card p-6">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">Variables (X) and Class (y)</h2>
+                <div class="overflow-x-auto wrap-anywhere">
+                    <h3 class="font-medium text-gray-700 mb-2">X (Variables)</h3>
+                    {{ X_html | safe }}
+                    <h3 class="font-medium text-gray-700 mb-2 mt-4">y (Class)</h3>
+                    {{ y_html | safe }}
+                </div>
+            </div>
+
+            <!-- Training/Testing Summary -->
+            <div class="section-card p-6">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">Training / Testing Split (80-20)</h2>
+                <h3 class="font-medium text-gray-700 mt-2">X_train (sample)</h3>
+                <div class="wrap-anywhere">
+                    {{ X_train_sample_html | safe }}
+                </div>
+                <h3 class="font-medium text-gray-700 mt-2">y_train (sample)</h3>
+                <div class="wrap-anywhere">
+                    {{ y_train_sample_html | safe }}
+                </div>
+                <h3 class="font-medium text-gray-700 mt-2">X_test (sample)</h3>
+                <div class="wrap-anywhere">
+                    {{ X_test_sample_html | safe }}
+                </div>
+                <h3 class="font-medium text-gray-700 mt-2">y_test (sample)</h3>
+                <div class="wrap-anywhere">
+                    {{ y_test_sample_html | safe }}
+                </div>
+                <h3 class="font-medium text-gray-700 mt-2">Prediksi (y_pred)</h3>
+                <div class="overflow-x-auto wrap-anywhere">
+                    {{ y_pred_html | safe }}
+                </div>
+
+            </div>
+
+            <!-- Accuracy -->
+            <div class="section-card p-6">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">Accuracy</h2>
+                {% if accuracy is not none %}
+                <div class="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-lg">
+                    <span class="text-2xl font-bold">{{ accuracy }}%</span>
+                </div>
+                {% else %}
+                <span class="text-gray-500 text-lg">N/A</span>
+                {% endif %}
+            </div>
+
+            <!-- Classification Report -->
+            <div class="section-card p-6">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">Classification Report</h2>
+                {% if class_report %}
+                <pre class="bg-gray-50 p-4 rounded text-sm wrap-anywhere">{{ class_report | tojson(indent=2) }}</pre>
+                {% else %}
+                <p class="text-gray-500">N/A</p>
+                {% endif %}
+            </div>
+
+            <!-- Confusion Matrix -->
+            <div class="section-card p-6">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">Confusion Matrix</h2>
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div>
+                        <!-- Pastikan matrix versi teks juga wrap -->
+                        <pre class="bg-gray-50 p-4 rounded text-sm wrap-anywhere">{{ confusion_matrix }}</pre>
+                    </div>
+                    {% if confusion_matrix_img %}
+                    <div>
+                        <img src="data:image/png;base64,{{ confusion_matrix_img }}"
+                            class="max-w-full h-auto border rounded-lg shadow-md" alt="Confusion Matrix Heatmap" />
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Decision Tree Visualization -->
+            <div class="section-card p-6">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">Decision Tree Visualization</h2>
+                <div class="flex justify-center">
+                    {% if tree_img %}
+                    <img src="data:image/png;base64,{{ tree_img }}"
+                        class="max-w-full h-auto border rounded-lg shadow-md" alt="Decision Tree Visualization" />
+                    {% else %}
+                    <p class="text-gray-500">Visualization not available</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+                <a href="/predict"
+                    class="bg-gradient-to-r from-primary-500 to-primary-600 text-white px-6 py-3 rounded-lg font-medium text-center hover:from-primary-600 hover:to-primary-700 transition-all duration-300">
+                    Go to Prediction Page
+                </a>
+                <a href="/"
+                    class="bg-gradient-to-r from-gray-500 to-gray-600 text-white px-6 py-3 rounded-lg font-medium text-center hover:from-gray-600 hover:to-gray-700 transition-all duration-300">
+                    Upload another dataset
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

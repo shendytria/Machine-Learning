@@ -1,0 +1,185 @@
+/* =========================================
+   FINANCE PRO THEME (dark purple)
+========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0d0b24;
+  color: #e5e5f7;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 850px;
+  margin: 80px auto;
+  background: #141129;
+  border-radius: 18px;
+  padding: 55px 65px;
+  box-shadow: 0 0 25px rgba(98, 76, 255, 0.25);
+  border: 1px solid rgba(98, 76, 255, 0.25);
+  transition: 0.3s ease;
+}
+
+.container:hover {
+  box-shadow: 0 0 45px rgba(128, 102, 255, 0.35);
+}
+
+h1,
+h2 {
+  text-align: center;
+  color: #a892ff;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 22px;
+  margin-top: 35px;
+  margin-bottom: 18px;
+}
+
+p {
+  text-align: center;
+  color: #bfbce8;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+label {
+  color: #cfcaff;
+  font-weight: 600;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(126, 104, 255, 0.12);
+  background: #1b1737;
+  color: #e6e1ff;
+  outline: none;
+  width: 100%;
+}
+
+input[type="file"] {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(126, 104, 255, 0.12);
+  background: #1b1737;
+  color: #cfcaff;
+}
+
+input:focus,
+select:focus {
+  box-shadow: 0 0 10px rgba(126, 104, 255, 0.18);
+  border-color: #7e68ff;
+}
+
+button {
+  background: linear-gradient(135deg, #7e68ff, #9e8bff);
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(126, 104, 255, 0.3);
+}
+
+button:hover {
+  transform: scale(1.03);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #1b1737;
+  margin-top: 12px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 18px rgba(168, 146, 255, 0.12);
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: center;
+  font-size: 14px;
+}
+
+th {
+  background: #7e68ff;
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+td {
+  background: #141129;
+  color: #e6e1ff;
+  border-bottom: 1px solid rgba(126, 104, 255, 0.06);
+}
+
+.chart {
+  width: 100%;
+  border-radius: 12px;
+  margin-top: 14px;
+  margin-bottom: 18px;
+  border: 1px solid rgba(126, 104, 255, 0.12);
+  box-shadow: 0 0 30px rgba(126, 104, 255, 0.12);
+}
+
+.prediksi {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  background: #1c1839;
+  border-radius: 12px;
+  padding: 18px;
+  margin-top: 18px;
+  color: #d8d3ff;
+  font-weight: 700;
+}
+
+.back {
+  display: inline-block;
+  width: 97.5%;
+  text-align: center;
+  background: linear-gradient(135deg, #7e68ff, #9e8bff);
+  color: #fff;
+  padding: 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  margin-top: 22px;
+}
+
+.back:hover {
+  transform: scale(1.02);
+}
+
+/* responsive */
+@media (max-width: 900px) {
+  .container {
+    width: 92%;
+    padding: 28px;
+    margin: 30px auto;
+  }
+
+  .prediksi {
+    flex-direction: column;
+    align-items: center;
+  }
+}
